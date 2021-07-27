@@ -1,8 +1,32 @@
-body {
-    background-color: rgb(24, 19, 68);
-    height: 100%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 
+:root {
+    --primColor: rgb(24, 19, 68);
+    --secoColor: rgb(236, 111, 111);
+    --input-padding-x: 1.5rem;
+    --input-padding-y: 0.75rem;
+    --cornerRad: 4px;
+  }
+  
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--primColor);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  * {
+    box-sizing: border-box;
+    
+  }
+  
 .textAreaStyles {
     color: white;
     background-color: inherit;
@@ -22,4 +46,14 @@ body {
 .cardStyles {
     background-color: inherit;
     border-radius: 20px;
+}
+
+
+.likeFont {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.dateStyles {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.315);
 }

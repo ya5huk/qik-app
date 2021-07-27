@@ -1,5 +1,5 @@
 .bg {
-  background-color: #272f42 !important;
+  background-color: var(--primColor) !important;
 }
 
 .img {
@@ -8,7 +8,7 @@
 }
 
 .img:hover {
-  content: url("../styles/images/wavy-logo-small-white.png");
+  content: url("../../styles/images/wavy-logo-small-white.png");
   transform: scale(1);
   transition: transform 0.4s;
 }

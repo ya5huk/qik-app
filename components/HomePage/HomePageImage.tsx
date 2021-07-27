@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./HomePageImage.module.css";
-import wavyLogo from "../styles/images/wavy-logo-small-black.png";
+import wavyLogo from "../../styles/images/wavy-logo-small-black.png";
 import Image from "next/image";
 import Link from "next/link";
 

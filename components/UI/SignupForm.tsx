@@ -39,7 +39,7 @@ const SignupForm: React.FC<Props> = ({
 
   return (
     <div
-      className={`row border justify-content-md-center h-100 ${classes.loginContainer}`}
+      className={`row justify-content-md-center h-100 ${classes.loginContainer}`}
     >
       <div className="container col-md-6 mx-auto p-5 ">
         <form onSubmit={formSubmitHandler} className="form-column">
@@ -47,44 +47,44 @@ const SignupForm: React.FC<Props> = ({
             <input
               ref={emailRef}
               type="email"
-              className="form-control"
+              className={`form-control ${classes.inputStyles}`}
               id="emailInput"
               placeholder="Email address"
+              autoComplete="off"
             />
-            <label htmlFor="emailInput">Email address</label>
+            <label htmlFor="emailInput" className="text-white">Email address</label>
           </div>
           <div className="form-floating mb-3">
             <input
               ref={usernameRef}
               type="text"
-              className="form-control"
+              className={`form-control ${classes.inputStyles}`}
               name="inputUsername"
               id="inputUsername"
               placeholder="Username"
             />
-            <label htmlFor="inputUsername">Username</label>
+            <label htmlFor="inputUsername" className="text-white">Username</label>
           </div>
           <div className="form-floating">
             <input
               ref={passwordRef}
               type="password"
-              className="form-control"
+              className={`form-control ${classes.inputStyles}`}
               name="inputPassword"
               id="inputPassword"
               placeholder="Password"
             />
-            <label htmlFor="inputPassword">Password</label>
+            <label htmlFor="inputPassword" className="text-white">Password</label>
           </div>
           <div className="d-flex justify-content-between mt-4">
             <button
               type="submit"
-              className={`position-relative btn btn-primary ${classes.buttonText}`}
+              className={`position-relative btn btn-danger ${classes.buttonText}`}
             >
               {loadingState ? "Loading..." : "Sign up"}
             </button>
 
             <p className={`fw-light text-white mt-auto mb-auto ${classes.pText}`}>
-              {console.log(classes.linkText)}
               Already have an account? Try to{" "}
               <Link href="/login">
                 <a className={classes.linkText}>login</a>

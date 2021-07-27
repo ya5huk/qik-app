@@ -34,7 +34,7 @@ const LoginForm: React.FC<Props> = ({
 
   return (
     <div
-      className={`row border justify-content-md-center h-100 ${classes.loginContainer}`}
+      className={`row justify-content-md-center h-100 ${classes.loginContainer}`}
     >
       <div className="container col-md-6 mx-auto p-5 ">
         <form onSubmit={formSubmitHandler} className="form-column">
@@ -42,30 +42,31 @@ const LoginForm: React.FC<Props> = ({
             <input
               ref={usernameRef}
               type="text"
-              className="form-control"
+              className={`form-control ${classes.inputStyles}`}
               name="inputUsername"
               id="inputUsername"
               placeholder="Username"
+              
             />
-            <label htmlFor="inputUsername">Username</label>
+            <label htmlFor="inputUsername" className="text-white">Username</label>
           </div>
 
           <div className="form-floating">
             <input
               ref={passwordRef}
               type="password"
-              className="form-control"
+              className={`form-control ${classes.inputStyles}`}
               name="inputPassword"
               id="inputPassword"
               placeholder="Password"
             />
-            <label htmlFor="inputPassword">Password</label>
+            <label htmlFor="inputPassword" className="text-white">Password</label>
           </div>
           <div className="d-flex justify-content-between align-items-center mt-4">
             <div>
               <button
                 type="submit"
-                className={`btn btn-primary ${classes.buttonText}`}
+                className={`btn btn-danger ${classes.buttonText}`}
               >
                 {loadingStatus ? "Loading..." : "Login"}
               </button>

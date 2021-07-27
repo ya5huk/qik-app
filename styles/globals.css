@@ -1,7 +1,6 @@
 :root {
-  --primColor: #dcdcdc;
-  --secoColor: #555555;
-  --bgColor: #272f42;
+  --primColor: rgb(24, 19, 68);
+  --secoColor: rgb(236, 111, 111);
   --input-padding-x: 1.5rem;
   --input-padding-y: 0.75rem;
   --cornerRad: 4px;
@@ -11,7 +10,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: var(--bgColor);
+  background-color: var(--primColor);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
 }

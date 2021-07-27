@@ -1,8 +1,35 @@
-/* bgColor: #272f42 */
+/* bgColor: rgb(24, 19, 68) */
+
+.inputStyles {
+  color: white !important;
+  background-color: inherit;
+  
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-radius: 0px;
+
+  box-shadow: none;
+  outline: none;
+}
+
+.inputStyles:focus {
+  background-color: inherit;
+  
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-radius: 0px;
+  
+  box-shadow: none;
+  outline: none;
+}
+
+
 
 .loginContainer {
   margin-top: 200px;
-  background-color: #272f42 !important;
+  background-color: rgb(24, 19, 68) !important;
 }
 
 .buttonText {
@@ -21,5 +48,4 @@
 }
 
 .pText { 
-  font-size: 15px;
 }

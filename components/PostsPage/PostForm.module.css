@@ -1,0 +1,15 @@
+.textAreaStyles {
+  color: white;
+  background-color: inherit;
+  border-color:  white;
+  border-radius: 20px;
+  resize: none;
+}
+
+.textAreaStyles:focus {
+  color: white;
+  background-color: inherit;
+  
+  box-shadow: none;
+  border-color: white;
+}

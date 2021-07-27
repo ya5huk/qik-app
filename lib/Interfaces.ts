@@ -14,3 +14,10 @@ export interface User {
   username: string,
   email: string
 }
+
+export interface Post {
+  author: string,
+  creationTime: string,
+  content: string,
+  likesAmount: number
+}

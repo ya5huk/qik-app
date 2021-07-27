@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap");
+
+.cardStyles {
+  background-color: inherit;
+  border-radius: 20px;
+}
+
+.likeFont {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.heartStyle {
+  text-decoration: none;
+  transform: scale(1);
+  transition: ease-in 0.1s;
+}
+
+.heartStyle:hover {
+  transform: scale(1.3);
+  transition: ease-in 0.1s;
+}
+
+.dateStyles {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.315);
+}

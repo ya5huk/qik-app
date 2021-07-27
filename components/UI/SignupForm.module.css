@@ -1,0 +1,25 @@
+/* bgColor: #272f42 */
+
+.loginContainer {
+  margin-top: 200px;
+  background-color: #272f42 !important;
+}
+
+.buttonText {
+  font-weight: bold !important;
+  letter-spacing: 0.5px;
+}
+
+.linkText {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.linkText:hover {
+  color: rgb(236, 111, 111) !important;
+  text-decoration: underline !important;
+}
+
+.pText { 
+  font-size: 15px;
+}

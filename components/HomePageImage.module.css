@@ -1,0 +1,15 @@
+.bg {
+  background-color: #272f42 !important;
+}
+
+.img {
+  transform: scale(0.7);
+  transition: transform 0.4s;
+}
+
+.img:hover {
+  content: url("../styles/images/wavy-logo-small-white.png");
+  transform: scale(1);
+  transition: transform 0.4s;
+}
+

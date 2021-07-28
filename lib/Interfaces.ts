@@ -17,9 +17,9 @@ export interface User {
 }
 
 export interface Post {
-  id: string,
+  id?: string,
   author: string,
-  creationTime: string,
+  creationTime: Date,
   content: string,
   likesAmount: number
 }

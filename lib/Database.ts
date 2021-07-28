@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { DB_URL } from "./Interfaces";
 
 export const connectMongoDB = async () => {
@@ -30,3 +30,9 @@ export const findInCollection = async (
   const usersCollection = db.collection(collection);
   return await usersCollection.findOne(searchedData);
 };
+
+export const findUserById = async (client: MongoClient, id: string) => {
+  const db = client.db();
+  const usersCollection = db.collection("Users");
+  return await usersCollection.findOne({_id: new ObjectId(id)});
+}

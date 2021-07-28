@@ -40,6 +40,7 @@
 .linkText {
   color: inherit !important;
   text-decoration: none !important;
+  font-style: italic;
 }
 
 .linkText:hover {

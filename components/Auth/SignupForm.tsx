@@ -86,7 +86,7 @@ const SignupForm: React.FC<Props> = ({
             </button>
 
             <p className={`fw-light text-white mt-auto mb-auto ${classes.pText}`}>
-              Already have an account? Try to{" "}
+              Got account? That's heart-crackin',{" "}
               <Link href="/login">
                 <a className={classes.linkText}>login</a>
               </Link>

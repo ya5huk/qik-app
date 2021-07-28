@@ -74,7 +74,7 @@ const LoginForm: React.FC<Props> = ({
             <div className="d-flex justify-content-between">
               
               <p className={`fw-light text-white m-auto ${classes.pText}`}>
-                Don't have an account? Try to{" "}
+                No account? no worries fam, jus'{" "}
                 <Link href="/sign-up">
                   <a className={classes.linkText}>signup</a>
                 </Link>

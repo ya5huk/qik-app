@@ -37,7 +37,8 @@
 
 .linkText {
   text-decoration: none;
-  color: white
+  color: white;
+  font-style: italic;
 }
 
 .linkText:hover {

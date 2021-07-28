@@ -12,7 +12,7 @@ const PostBox: React.FC<Props> = ({ post }) => {
   return (
     <div className={`card text-white border-white mb-5 ${classes.cardStyles}`}>
       <div className="card-header bg-transparent border-none d-flex flex-inline align-items-center justify-content-between">
-        <p className="m-0">{post.author}</p>
+        <p className="m-0 fw-bold">{post.author}</p>
         <p className={`m-0 ${classes.dateStyles}`}>{postCreatedTimeAgo}</p>
       </div>
 

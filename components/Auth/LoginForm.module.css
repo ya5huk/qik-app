@@ -1,0 +1,46 @@
+/* bgColor: #272f42 */
+
+.inputStyles {
+  color: white !important;
+  background-color: inherit;
+  
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-radius: 0px;
+
+  box-shadow: none;
+  outline: none;
+}
+
+.inputStyles:focus {
+  background-color: inherit;
+  
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-radius: 0px;
+  
+  box-shadow: none;
+  outline: none;
+}
+
+.loginContainer {
+  margin-top: 200px;
+  background-color: rgb(24, 19, 68) !important;
+}
+
+.buttonText {
+  font-weight: bold !important;
+  letter-spacing: 0.5px;
+}
+
+.linkText {
+  text-decoration: none;
+  color: white
+}
+
+.linkText:hover {
+  text-decoration: underline;
+  color: rgb(236, 111, 111);
+}

@@ -5,25 +5,15 @@ import FormWrapper from "../../components/PostsPage/FormWrapper";
 import PostForm from "../../components/PostsPage/PostForm";
 import PostsList from "../../components/PostsPage/PostsList";
 import { Post } from "../../lib/Interfaces";
-import axios from 'axios';
+import axios from "axios";
+import { getPostsFromDatabase } from "../../lib/Posts";
+import { GetStaticProps } from "next";
 
-const DUMMY_POSTS: Post[] = [
-  {
-    id: "7445a6dsdfa8ef4",
-    author: "Ilan Yashuk",
-    creationTime: new Date("2021-07-28T18:53:00"),
-    content: "Hey my name is Ilan Yashuk",
-    likesAmount: 10,
-  }, {
-    id: "daf654weaf23awe1f",
-    author: "Ron Kaufman",
-    creationTime: new Date("2021-07-28T03:24:00"),
-    content: "Hey my name is Ron Kaufman",
-    likesAmount: 642,
-  }
-];
+interface Props {
+  posts: Post[];
+}
 
-const postsHome: React.FC = () => {
+const postsHome: React.FC<Props> = ({ posts }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
@@ -37,14 +27,21 @@ const postsHome: React.FC = () => {
 
   const addPost = (content: string) => {
     setLoading(true);
-    axios.post('/api/add-post', {content: content, userId: localStorage.getItem('?')}).then(res => {
-      console.log('Added post', res);
-    }).catch(err => {
-      console.log('Didnt add post', err);
-    }).finally(() => {
-      setLoading(false);
-    })  
-  }
+    axios
+      .post("/api/add-post", {
+        content: content,
+        userId: localStorage.getItem("?"),
+      })
+      .then((res) => {
+        console.log("Added post", res);
+      })
+      .catch((err) => {
+        console.log("Didnt add post", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <div
@@ -52,11 +49,35 @@ const postsHome: React.FC = () => {
       style={{ backgroundColor: "var(--primColor)" }}
     >
       <FormWrapper>
-        <PostForm addPost={addPost}/>
+        <PostForm addPost={addPost} />
       </FormWrapper>
-      <PostsList posts={DUMMY_POSTS} />
+      <PostsList posts={posts} />
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const posts = await getPostsFromDatabase(0);
+  const updatedPosts: Post[] = [];
+  // Just to get the id's to string form and date string to Date
+  posts?.forEach((post) => {
+    const newPost: Post = {
+      author: post.author,
+      content: post.content,
+      creationTime: post.creationTime.toString(),
+      likesAmount: post.likesAmount,
+      id: post._id.toString(),
+    };
+    updatedPosts.push(newPost);
+
+  });
+  console.log(posts);
+  return {
+    props: {
+      posts: updatedPosts
+    },
+    revalidate: 4,
+  };
 };
 
 export default postsHome;

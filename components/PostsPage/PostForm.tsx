@@ -1,17 +1,21 @@
 import React, { FormEvent, useRef } from "react";
 import FormWrapper from './FormWrapper';
 import classes from './PostForm.module.css';
-
 interface Props { 
   addPost: (content: string) => void;
 }
+
+const Filter = require('bad-words');
+const filter = new Filter();
+// Language filter, using: https://www.npmjs.com/package/bad-words
 
 const PostForm: React.FC<Props> = ({ addPost }) => {
   const content = useRef<HTMLTextAreaElement>(null);
 
   const handlePostSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const postContent = content.current?.value.substr(0, 300); // Take first 300 chars
+    let postContent = content.current?.value.substr(0, 300); // Take first 300 chars
+    postContent = filter.clean(postContent);
     if(postContent !== undefined && postContent !== '') {
       addPost(postContent);
     }

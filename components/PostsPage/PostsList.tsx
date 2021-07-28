@@ -8,6 +8,11 @@ interface Props {
 }
 
 const PostsList: React.FC<Props> = ({ posts }) => {
+  // Date comes here as a string
+  // Fixing that:
+  posts.map(post => {
+    post.creationTime = new Date(post.creationTime)
+  })
   return (
     <PostsWrapper>
       {posts.map((post) => (

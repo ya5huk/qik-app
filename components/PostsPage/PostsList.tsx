@@ -9,7 +9,7 @@ interface Props {
 
 const PostsList: React.FC<Props> = ({posts}) => {
     return <PostsWrapper>
-        {posts.map(post => <PostBox post={post}/>)}
+        {posts.map(post => <PostBox key={post.id} post={post}/>)}
     </PostsWrapper>
     
 }

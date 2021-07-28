@@ -73,6 +73,7 @@ const SignupForm: React.FC<Props> = ({
               name="inputPassword"
               id="inputPassword"
               placeholder="Password"
+              minLength={6}
             />
             <label htmlFor="inputPassword" className="text-white">Password</label>
           </div>

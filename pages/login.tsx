@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
 import { useState } from "react";
-import LoginForm from "../components/UI/LoginForm";
+import LoginForm from "../components/Auth/LoginForm";
 import { User } from "../lib/Interfaces";
 
 interface Props {}

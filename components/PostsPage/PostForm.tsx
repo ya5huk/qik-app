@@ -1,11 +1,29 @@
-import React from "react";
+import React, { FormEvent, useRef } from "react";
 import FormWrapper from './FormWrapper';
 import classes from './PostForm.module.css';
 
-const PostForm: React.FC = ({ children }) => {
+interface Props { 
+  addPost: (content: string) => void;
+}
+
+const PostForm: React.FC<Props> = ({ addPost }) => {
+  const content = useRef<HTMLTextAreaElement>(null);
+
+  const handlePostSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const postContent = content.current?.value.substr(0, 300); // Take first 300 chars
+    if(postContent !== undefined && postContent !== '') {
+      addPost(postContent);
+    }
+    if(content && content.current) {
+      content.current.value = '';
+    }
+    
+  }
+
   return (
     <FormWrapper>
-        <form className="d-flex flex-column form-group">
+        <form className="d-flex flex-column form-group" onSubmit={handlePostSubmit}>
             <textarea
               className={`form-control ${classes.textAreaStyles}`}
               placeholder="What's on your mind?"
@@ -13,6 +31,7 @@ const PostForm: React.FC = ({ children }) => {
               id="postContent"
               rows={6}
               maxLength={200}
+              ref={content}
             ></textarea>
             <button
               name="submitPost"

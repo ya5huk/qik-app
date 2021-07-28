@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import React, { useState } from "react";
-import SignupForm from "../components/UI/SignupForm";
+import SignupForm from "../components/Auth/SignupForm";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 

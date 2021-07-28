@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bad-words": "^3.0.4",
     "bootstrap": "^5.0.2",
     "firebase": "^8.8.0",
     "firebase-admin": "^9.11.0",

@@ -19,7 +19,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const loginResult = await findUser(req.body);
+  const loginResult: any = await findUser(req.body);
 
   if (loginResult !== undefined) {
     const returnedUser = {

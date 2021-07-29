@@ -13,16 +13,16 @@ interface Props {
   posts: Post[];
 }
 
-const postsHome: React.FC<Props> = ({ posts }) => {
+const PostsHome: React.FC<Props> = ({ posts }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
     const id = localStorage.getItem("?");
-    console.log(id);
+    console.log('Logged in', id);
     if (id === null) {
       router.push("/login");
     }
-  }, []);
+  }, [router]);
   // So people who enter can't get to posts without user
 
   const addPost = (content: string) => {
@@ -58,7 +58,7 @@ const postsHome: React.FC<Props> = ({ posts }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const posts = await getPostsFromDatabase(0);
-  const updatedPosts: Post[] = [];
+  let updatedPosts: Post[] = [];
   // Just to get the id's to string form and date string to Date
   posts?.forEach((post) => {
     const newPost: Post = {
@@ -69,9 +69,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
       id: post._id.toString(),
     };
     updatedPosts.push(newPost);
-
   });
-  console.log(posts);
+  // Sort by time created
+  updatedPosts = updatedPosts.sort((pos1, pos2) => {
+    const date1 = new Date(pos1.creationTime);
+    const date2 = new Date(pos2.creationTime);
+    return (date2.getTime() - date1.getTime()); 
+  })
   return {
     props: {
       posts: updatedPosts
@@ -80,4 +84,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-export default postsHome;
+export default PostsHome;

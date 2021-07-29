@@ -28,7 +28,7 @@ export const findInCollection = async (
 ) => {
   const db = client.db();
   const usersCollection = db.collection(collection);
-  return await usersCollection.findOne(searchedData);
+  return usersCollection.findOne(searchedData);
 };
 
 export const findUserById = async (client: MongoClient, id: string) => {

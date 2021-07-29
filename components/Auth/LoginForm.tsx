@@ -1,6 +1,7 @@
-import { useRef, FormEvent } from "react";
+import { useEffect, useRef, FormEvent } from "react";
 import classes from "./LoginForm.module.css";
 import Link from "next/link";
+import { useRouter } from "next/dist/client/router";
 
 interface Props {
   submitHandler: (username: string, password: string) => void;
@@ -15,6 +16,14 @@ const LoginForm: React.FC<Props> = ({
 }) => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  // Looged user won't have access to login and Signup
+  useEffect(() => {
+    if(localStorage.getItem('?') !== null) {
+      router.push('/posts');
+    }
+  }, [router]);
 
   const formSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
@@ -74,7 +83,7 @@ const LoginForm: React.FC<Props> = ({
             <div className="d-flex justify-content-between">
               
               <p className={`fw-light text-white m-auto ${classes.pText}`}>
-                No account? no worries fam, jus'{" "}
+                No account? no worries fam, jus&apos;{" "}
                 <Link href="/sign-up">
                   <a className={classes.linkText}>signup</a>
                 </Link>

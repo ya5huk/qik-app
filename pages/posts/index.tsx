@@ -14,7 +14,7 @@ interface Props {
 }
 
 const PostsHome: React.FC<Props> = ({ posts }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading when uploading a post, can be used for graphical purposes later
   const router = useRouter();
   useEffect(() => {
     const id = localStorage.getItem("?");

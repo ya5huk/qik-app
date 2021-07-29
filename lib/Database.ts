@@ -1,5 +1,5 @@
 import { Db, MongoClient, ObjectId } from "mongodb";
-import { DB_URL } from "./Interfaces";
+import { DB_URL, Post } from "./Interfaces";
 
 export const connectMongoDB = async () => {
   try {
@@ -42,3 +42,11 @@ export const getPosts = async (client: MongoClient, bundleNum: number) => {
   const usersCollection = db.collection("Posts");
   return usersCollection.find().skip(10 * bundleNum).limit(10);
 }
+
+export const changePostLikeAmount = async (client: MongoClient, post: Post, amount: number) => {
+  const db = client.db();
+  const usersCollection = db.collection("Posts");
+  const newPost: Post = {...post, likesAmount: post.likesAmount + amount}; // Changing likes here
+  const res = await usersCollection.findOneAndReplace({_id: new ObjectId(post.id)}, newPost);
+  return res;
+} 

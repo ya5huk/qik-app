@@ -31,6 +31,18 @@ export const getPostsFromDatabase = async (bundleNum: number) => {
   // bundle 2 20 - 30
   const res = await Database.getPosts(client, bundleNum);
   
-  return res.toArray();
+  const arr = await res.toArray();
+  client.close();
+  return arr;
   // Close client !!!!IMPORTANT!!!!
 };
+
+export const changeLikesForPost = async (post: Interfaces.Post, amount: number) => {
+  const client = await Database.connectMongoDB();
+  if(!client) {
+    return;
+  }
+  const res = await Database.changePostLikeAmount(client, post, amount);
+  client.close();
+  return res;
+}

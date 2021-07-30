@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const date1 = new Date(pos1.creationTime);
     const date2 = new Date(pos2.creationTime);
     return (date2.getTime() - date1.getTime()); 
-  })
+  });
   return {
     props: {
       posts: updatedPosts

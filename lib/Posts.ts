@@ -37,7 +37,7 @@ export const getAllPostsId = async () => {
   return postsId;
 }
 
-export const getPostWithId = async (id: any) => {
+export const getPostWithId = async (id: string) => {
   const res = await Database.getPostById(id);
   return res;
 } 

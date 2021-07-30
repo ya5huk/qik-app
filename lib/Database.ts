@@ -5,15 +5,6 @@ const client = new MongoClient(process.env.DB_URI as string);
 const clientPromise = client.connect();
 
 
-export const connectMongoDB = async () => {
-  try {
-    const client = await clientPromise;
-    return client;
-  } catch (error) {
-    console.log("Error while logging in the database ", error);
-  }
-};
-
 export const addToCollection = async (collection: string, addedData: any) => {
   const client = await clientPromise;
   // Add the user to database!

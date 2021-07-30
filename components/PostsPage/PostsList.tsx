@@ -13,6 +13,7 @@ const PostsList: React.FC<Props> = ({ posts }) => {
   posts.map(post => {
     post.creationTime = new Date(post.creationTime)
   })
+  console.log('p', posts);
   return (
     <PostsWrapper>
       {posts.map((post) => (

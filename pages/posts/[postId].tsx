@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const postId = context.params?.postId;
-    const gottenPost = await getPostWithId(postId);
+    const gottenPost = await getPostWithId(postId as string);
     const post: Post = {
         author: gottenPost?.author,
         content: gottenPost?.content,

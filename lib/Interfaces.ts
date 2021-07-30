@@ -24,4 +24,3 @@ export interface Post {
   likesAmount: number
 }
 
-export const DB_URL = "mongodb+srv://ilan:147963258@cluster0.xgbq2.mongodb.net/wavy?";

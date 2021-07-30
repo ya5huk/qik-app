@@ -46,3 +46,21 @@ export const changeLikesForPost = async (post: Interfaces.Post, amount: number) 
   client.close();
   return res;
 }
+
+export const getAllPostsId = async () => {
+  const client = await Database.connectMongoDB();
+  if(!client) {
+    return;
+  }
+  const postsId = await Database.getAllPostsId(client);
+  client.close();
+  return postsId;
+}
+
+export const getPostWithId = async (id: any) => {
+  const client = await Database.connectMongoDB();
+  if(!client) return;
+  const res = await Database.getPostById(client, id);
+  client.close();
+  return res;
+} 

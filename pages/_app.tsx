@@ -7,7 +7,7 @@ declare module "*.png" {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return <Component className="bg-transperent" {...pageProps} />
 }
 
 export default MyApp;

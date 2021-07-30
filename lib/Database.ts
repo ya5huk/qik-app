@@ -1,4 +1,4 @@
-import { Db, MongoClient, ObjectId } from "mongodb";
+import { Db, FindOptions, MongoClient, ObjectId } from "mongodb";
 import { DB_URL, Post } from "./Interfaces";
 
 export const connectMongoDB = async () => {
@@ -50,3 +50,18 @@ export const changePostLikeAmount = async (client: MongoClient, post: Post, amou
   const res = await usersCollection.findOneAndReplace({_id: new ObjectId(post.id)}, newPost);
   return res;
 } 
+
+export const getAllPostsId = async (client: MongoClient) => {
+  const db = client.db();
+  const usersCollection = db.collection("Posts");
+  const res = await usersCollection.find({}, {projection: {_id: 1}}).toArray();
+  const userId = res.map(u => u._id.toString())
+  return userId;
+}
+
+export const getPostById = async(client: MongoClient, id: string) => {
+  const db = client.db();
+  const usersCollection = db.collection("Posts");
+  const res = await usersCollection.findOne({_id: new ObjectId(id)});
+  return res;
+}

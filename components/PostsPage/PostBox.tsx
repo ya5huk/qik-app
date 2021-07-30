@@ -25,16 +25,16 @@ const PostBox: React.FC<Props> = ({ post }) => {
   const handleLikeAdd = (e: any) => {
     e.preventDefault();
     if (liked) {
+      // Removing a like
+      setLiked(false);
       axios
         .post("/api/change-likes", { post: post, amount: -1 })
         .then((res) => {
           console.log("Removed like", res);
         })
         .catch((err) => {
+          setLiked(true);
           console.log("Error removing like", err);
-        })
-        .finally(() => {
-          setLiked(false);
         });
 
       // Removing from liked list
@@ -46,6 +46,8 @@ const PostBox: React.FC<Props> = ({ post }) => {
         if (newLikedList) localStorage.setItem("l", newLikedList.toString());
       }
     } else {
+      // Adding a like because post is not in liked list
+      setLiked(true);
       axios
         .post("/api/change-likes", { post: post, amount: 1 })
         .then((res) => {
@@ -53,9 +55,7 @@ const PostBox: React.FC<Props> = ({ post }) => {
         })
         .catch((err) => {
           console.log("Error adding like", err);
-        })
-        .finally(() => {
-          setLiked(true);
+          setLiked(false);
         });
 
       // Add to likedList of users

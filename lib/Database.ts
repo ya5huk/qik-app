@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Db, FindOptions, MongoClient, ObjectId } from "mongodb";
 import { Post } from "./Interfaces";
+=======
+import { Db, MongoClient, ObjectId } from "mongodb";
+import { DB_URL, Post } from "./Interfaces";
+>>>>>>> parent of ad52fbf... Added Full post page to site.
 
 const client = new MongoClient(process.env.DB_URI as string);
 const clientPromise = client.connect();
@@ -50,6 +55,7 @@ export const changePostLikeAmount = async (post: Post, amount: number) => {
     newPost
   );
   return res;
+<<<<<<< HEAD
 };
 
 export const getAllPostsId = async () => {
@@ -70,3 +76,6 @@ export const getPostById = async (id: string) => {
   const res = await usersCollection.findOne({ _id: new ObjectId(id) });
   return res;
 };
+=======
+} 
+>>>>>>> parent of ad52fbf... Added Full post page to site.

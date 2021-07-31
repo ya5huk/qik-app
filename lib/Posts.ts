@@ -31,6 +31,7 @@ export const changeLikesForPost = async (post: Interfaces.Post, amount: number) 
   const res = await Database.changePostLikeAmount(post, amount);
   return res;
 }
+<<<<<<< HEAD
 
 export const getAllPostsId = async () => {
   const postsId = await Database.getAllPostsId();
@@ -41,3 +42,5 @@ export const getPostWithId = async (id: string) => {
   const res = await Database.getPostById(id);
   return res;
 } 
+=======
+>>>>>>> parent of ad52fbf... Added Full post page to site.

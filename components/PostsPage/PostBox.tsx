@@ -4,7 +4,6 @@ import { Post } from "../../lib/Interfaces";
 import { getDateDifferenceString } from "../../lib/Date";
 import axios from "axios";
 import { useEffect } from "react";
-import Link from "next/link";
 
 interface Props {
   post: Post;
@@ -92,31 +91,25 @@ const PostBox: React.FC<Props> = ({ post }) => {
         className="
         d-flex
         flex-inline
-        justify-content-between
+        justify-content-end
         card-footer
         align-items-center
         bg-transparent
       "
       >
-        <Link href={`/posts/${post.id}`}>
-        <a className={`my-auto pb-1 ${classes.heartStyle}`}>🗒️</a>
-        </Link>
-        
-        <div id="likesSection" className="d-flex flex-inline">
-          <a
-            onClick={handleLikeAdd}
-            className={`my-auto me-1 pb-1 just ${classes.heartStyle}`}
-          >
-            {liked ? "❤️" : "🤍"}
-          </a>
-          {post.likesAmount > 0 ? ( // Show likes only when there are likes
-            <p className={`font-weight-light my-auto ${classes.likeFont}`}>
-              {post.likesAmount} likes
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
+        <a
+          onClick={handleLikeAdd}
+          className={`pe-1 mb-1 ${classes.heartStyle}`}
+        >
+          {liked ? "❤️" : "🤍"}
+        </a>
+        {post.likesAmount > 0 ? ( // Show likes only when there are likes
+          <p className={`font-weight-light mb-0 ${classes.likeFont}`}>
+            {post.likesAmount} likes
+          </p>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

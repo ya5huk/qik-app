@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./PostBox.module.css";
 import { Post } from "../../lib/Interfaces";
 import { getDateDifferenceString } from "../../lib/Date";
 import axios from "axios";
-import { useEffect } from "react";
+import Link from "next/link";
 
 interface Props {
   post: Post;
+  userId: string;
 }
 
-const PostBox: React.FC<Props> = ({ post }) => {
+const PostBox: React.FC<Props> = ({ post, userId }) => {
   const postCreatedTimeAgo = getDateDifferenceString(post.creationTime);
   const [liked, setLiked] = useState(false);
-
-  // Show post as liked if its in liked list in first load:
   useEffect(() => {
-    if (post.id) {
-      localStorage.getItem("l")?.includes(post.id)
-        ? setLiked(true)
-        : setLiked(false);
-    }
-  }, [post.id]);
+    // Figure out why it don't show how much likes
+    setLiked((post.likedList.toString().split(',')).includes(userId)); // Searhing in likedList for current user
+  }, [])
 
   const handleLikeAdd = (e: any) => {
     e.preventDefault();
@@ -28,7 +24,7 @@ const PostBox: React.FC<Props> = ({ post }) => {
       // Removing a like
       setLiked(false);
       axios
-        .post("/api/change-likes", { post: post, amount: -1 })
+        .post("/api/change-likes", { post: post, amount: -1, userId: userId })
         .then((res) => {
           console.log("Removed like", res);
         })
@@ -36,20 +32,11 @@ const PostBox: React.FC<Props> = ({ post }) => {
           setLiked(true);
           console.log("Error removing like", err);
         });
-
-      // Removing from liked list
-      if (post.id) {
-        let newLikedList = localStorage
-          .getItem("l")
-          ?.split(",")
-          .filter((postId) => postId !== post.id);
-        if (newLikedList) localStorage.setItem("l", newLikedList.toString());
-      }
     } else {
       // Adding a like because post is not in liked list
       setLiked(true);
       axios
-        .post("/api/change-likes", { post: post, amount: 1 })
+        .post("/api/change-likes", { post: post, amount: 1, userId: userId })
         .then((res) => {
           console.log("Added like", res);
         })
@@ -57,24 +44,6 @@ const PostBox: React.FC<Props> = ({ post }) => {
           console.log("Error adding like", err);
           setLiked(false);
         });
-
-      // Add to likedList of users
-      if (!localStorage.getItem("l")) {
-        // If list does not exist, we add it
-        localStorage.setItem("l", [post.id].toString());
-      } else {
-        if (
-          post.id &&
-          localStorage.getItem("l")?.split(",").includes(post.id)
-        ) {
-          return; // No like in case we already liked (in like list)
-        }
-        // In case we liking a new post, just add to list
-        const currList = localStorage.getItem("l")?.split(",");
-        if (currList) {
-          localStorage.setItem("l", [...currList, post.id].toString());
-        }
-      }
     }
   };
   return (
@@ -91,25 +60,31 @@ const PostBox: React.FC<Props> = ({ post }) => {
         className="
         d-flex
         flex-inline
-        justify-content-end
+        justify-content-between
         card-footer
         align-items-center
         bg-transparent
       "
       >
-        <a
-          onClick={handleLikeAdd}
-          className={`pe-1 mb-1 ${classes.heartStyle}`}
-        >
-          {liked ? "❤️" : "🤍"}
-        </a>
-        {post.likesAmount > 0 ? ( // Show likes only when there are likes
-          <p className={`font-weight-light mb-0 ${classes.likeFont}`}>
-            {post.likesAmount} likes
-          </p>
-        ) : (
-          ""
-        )}
+        <Link href={`/posts/${post.id}`}>
+          <a className={`my-auto pb-1 ${classes.heartStyle}`}>🗒️</a>
+        </Link>
+
+        <div id="likesSection" className="d-flex flex-inline">
+          <a
+            onClick={handleLikeAdd}
+            className={`my-auto me-1 pb-1 just ${classes.heartStyle}`}
+          >
+            {liked ? "❤️" : "🤍"}
+          </a>
+          {post.likesAmount > 0 ? ( // Show likes only when there are likes
+            <p className={`font-weight-light my-auto ${classes.likeFont}`}>
+              {post.likesAmount} likes
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
     </div>
   );

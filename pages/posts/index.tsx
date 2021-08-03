@@ -14,10 +14,12 @@ interface Props {
 }
 
 const PostsHome: React.FC<Props> = ({ posts }) => {
+  const [userId, setUserId] = useState('');
   const [loading, setLoading] = useState(false); // Loading when uploading a post, can be used for graphical purposes later
   const router = useRouter();
   useEffect(() => {
     const id = localStorage.getItem("?");
+    setUserId(localStorage.getItem('?') as string);
     console.log('Logged in', id);
     if (id === null) {
       router.push("/login");
@@ -51,7 +53,7 @@ const PostsHome: React.FC<Props> = ({ posts }) => {
       <FormWrapper>
         <PostForm addPost={addPost} />
       </FormWrapper>
-      <PostsList posts={posts} />
+      <PostsList userId={userId} posts={posts} />
     </div>
   );
 };
@@ -67,6 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       creationTime: post.creationTime.toString(),
       likesAmount: post.likesAmount,
       id: post._id.toString(),
+      likedList: post.likedList
     };
     updatedPosts.push(newPost);
   });
@@ -75,7 +78,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const date1 = new Date(pos1.creationTime);
     const date2 = new Date(pos2.creationTime);
     return (date2.getTime() - date1.getTime()); 
-  });
+  })
   return {
     props: {
       posts: updatedPosts

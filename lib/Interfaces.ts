@@ -21,6 +21,7 @@ export interface Post {
   author: string,
   creationTime: Date,
   content: string,
-  likesAmount: number
+  likesAmount: number,
+  likedList: string[] | string
 }
 

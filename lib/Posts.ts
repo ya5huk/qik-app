@@ -7,7 +7,8 @@ export const addPostToDatabase = async (content: string, userId: string) => {
     author: authorUser?.username,
     content: content,
     creationTime: new Date(),
-    likesAmount: 0
+    likesAmount: 0,
+    likedList: []
   };
 
   const res = await Database.addToCollection("Posts", post);
@@ -15,7 +16,6 @@ export const addPostToDatabase = async (content: string, userId: string) => {
 };
 
 export const getPostsFromDatabase = async (bundleNum: number) => {
-
   // 10 posts will be in each bundle
   // bundle 0 1 - 10
   // bundle 1 10 - 20
@@ -27,20 +27,17 @@ export const getPostsFromDatabase = async (bundleNum: number) => {
   // Close client !!!!IMPORTANT!!!!
 };
 
-export const changeLikesForPost = async (post: Interfaces.Post, amount: number) => {
-  const res = await Database.changePostLikeAmount(post, amount);
+export const changeLikesForPost = async (post: Interfaces.Post, amount: number, userId: string) => {
+  const res = await Database.changePostLikeAmount(post, amount, userId);
   return res;
 }
-<<<<<<< HEAD
 
 export const getAllPostsId = async () => {
   const postsId = await Database.getAllPostsId();
   return postsId;
 }
 
-export const getPostWithId = async (id: string) => {
+export const getPostWithId = async (id: any) => {
   const res = await Database.getPostById(id);
   return res;
 } 
-=======
->>>>>>> parent of ad52fbf... Added Full post page to site.

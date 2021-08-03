@@ -10,8 +10,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const response = await PostsLib.changeLikesForPost(req.body.post, req.body.amount)
-  if(response?.ok) {
+  const response = await PostsLib.changeLikesForPost(req.body.post, req.body.amount, req.body.userId)
+  if(response?.acknowledged) {
     res.status(200).json({ result: "success" });
   }
   else {

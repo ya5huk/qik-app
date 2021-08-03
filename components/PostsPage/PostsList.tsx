@@ -5,19 +5,19 @@ import PostsWrapper from "./PostsWrapper";
 
 interface Props {
   posts: Post[];
+  userId: string
 }
 
-const PostsList: React.FC<Props> = ({ posts }) => {
+const PostsList: React.FC<Props> = ({ posts, userId }) => {
   // Date comes here as a string
   // Fixing that:
   posts.map(post => {
     post.creationTime = new Date(post.creationTime)
   })
-  console.log('p', posts);
   return (
     <PostsWrapper>
       {posts.map((post) => (
-        <PostBox key={post.id} post={post} />
+        <PostBox key={post.id} userId={userId} post={post} />
       ))}
     </PostsWrapper>
   );

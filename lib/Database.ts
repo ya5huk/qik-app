@@ -1,19 +1,21 @@
-<<<<<<< HEAD
-import { Db, FindOptions, MongoClient, ObjectId } from "mongodb";
+import { MongoClient, Db, ObjectId } from "mongodb";
+import PostsHome from "../pages/posts";
 import { Post } from "./Interfaces";
-=======
-import { Db, MongoClient, ObjectId } from "mongodb";
-import { DB_URL, Post } from "./Interfaces";
->>>>>>> parent of ad52fbf... Added Full post page to site.
 
-const client = new MongoClient(process.env.DB_URI as string);
-const clientPromise = client.connect();
+const clientPromise: Promise<MongoClient> | null = MongoClient.connect(
+  process.env.DB_URI as string
+);
+let client: MongoClient | null = null;
 
+export const connectDatabase = async () => {
+  if (!client) {
+    client = await clientPromise;
+  }
+  return client.db();
+};
 
 export const addToCollection = async (collection: string, addedData: any) => {
-  const client = await clientPromise;
-  // Add the user to database!
-  const db = client.db();
+  const db = await connectDatabase();
   const usersCollection = db.collection(collection);
   return await usersCollection.insertOne(addedData);
 };
@@ -22,45 +24,56 @@ export const findInCollection = async (
   collection: string,
   searchedData: any
 ) => {
-  const client = await clientPromise;
-  const db = client.db();
+  const db = await connectDatabase();
   const usersCollection = db.collection(collection);
   return usersCollection.findOne(searchedData);
 };
 
 export const findUserById = async (id: string) => {
-  const client = await clientPromise;
-  const db = client.db();
+  const db = await connectDatabase();
   const usersCollection = db.collection("Users");
   return await usersCollection.findOne({ _id: new ObjectId(id) });
 };
 
 export const getPosts = async (bundleNum: number) => {
-  const client = await clientPromise;
-  const db = client.db();
-  const usersCollection = db.collection("Posts");
-  return usersCollection
+  const db = await connectDatabase();
+  const postsCollection = db.collection("Posts");
+  return postsCollection
     .find()
     .skip(10 * bundleNum)
     .limit(10);
 };
 
-export const changePostLikeAmount = async (post: Post, amount: number) => {
-  const client = await clientPromise;
-  const db = client.db();
-  const usersCollection = db.collection("Posts");
-  const newPost: Post = { ...post, likesAmount: post.likesAmount + amount }; // Changing likes here
-  const res = await usersCollection.findOneAndReplace(
-    { _id: new ObjectId(post.id) },
-    newPost
-  );
+export const changePostLikeAmount = async (
+  post: Post,
+  amount: number,
+  userId: string
+) => {
+  const db = await connectDatabase();
+  const postsCollection = db.collection("Posts");
+  const postToChange: any = (await postsCollection.findOne({
+    _id: new ObjectId(post.id),
+  })) as Document; // A database post is returned
+  // I declare as any to prevent typescript errors
+
+  const query = { _id: new ObjectId(post.id) };
+  const updateDocument = {
+    $set: {
+      likesAmount: postToChange.likesAmount + amount,
+      likedList:
+        amount > 0
+          ? [...postToChange.likedList, userId]
+          : postToChange.likedList.filter((id: string) => id !== userId),
+    },
+  };
+
+  const res = await postsCollection.updateOne(query, updateDocument);
+  console.log(res);
   return res;
-<<<<<<< HEAD
 };
 
 export const getAllPostsId = async () => {
-  const client = await clientPromise;
-  const db = client.db();
+  const db = await connectDatabase();
   const usersCollection = db.collection("Posts");
   const res = await usersCollection
     .find({}, { projection: { _id: 1 } })
@@ -70,12 +83,8 @@ export const getAllPostsId = async () => {
 };
 
 export const getPostById = async (id: string) => {
-  const client = await clientPromise;
-  const db = client.db();
+  const db = await connectDatabase();
   const usersCollection = db.collection("Posts");
   const res = await usersCollection.findOne({ _id: new ObjectId(id) });
   return res;
 };
-=======
-} 
->>>>>>> parent of ad52fbf... Added Full post page to site.

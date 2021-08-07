@@ -15,8 +15,8 @@ const PostForm: React.FC<Props> = ({ addPost }) => {
   const handlePostSubmit = (e: FormEvent) => {
     e.preventDefault();
     let postContent = content.current?.value.substr(0, 300); // Take first 300 chars
-    postContent = filter.clean(postContent);
     if(postContent !== undefined && postContent !== '') {
+      postContent = filter.clean(postContent);
       addPost(postContent);
     }
     if(content && content.current) {

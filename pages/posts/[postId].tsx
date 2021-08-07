@@ -14,8 +14,8 @@ const FullPostPage:React.FC<Props> = ({post}) => {
     const [likedInitialValue, setLikedInitialValue] = useState(false);
     useEffect(() => {
         setUserId(localStorage.getItem('?') as string);
-        setLikedInitialValue(post.likedList.includes(userId));
-    }, []);
+        setLikedInitialValue(post.likedList.toString().split(',').includes(userId));
+    }, [post, userId, likedInitialValue]);
     return <FullPost likedInitialValue={likedInitialValue} post={post} userId={userId}/>;
 }
 
@@ -24,10 +24,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     let paths = res?.map((postId) => ({
         params: { postId: postId },
       }));
-      console.log(paths);
         
     return {
-        paths, fallback: true
+        paths, fallback: false
     }
 }
 

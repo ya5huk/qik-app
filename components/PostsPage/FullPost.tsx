@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./FullPost.module.css";
 import { Post } from "../../lib/Interfaces";
 import { getDateDifferenceString } from "../../lib/Date";
@@ -15,9 +15,18 @@ const FullPost: React.FC<Props> = ({ post, userId, likedInitialValue }) => {
   const date = new Date(post.creationTime);
   const createdTimeAgo = getDateDifferenceString(date);
   const [liked, setLiked] = useState(likedInitialValue);
+  useEffect(() => {
+    setLiked(likedInitialValue);
+  }, [likedInitialValue]) // Change like if it changed in parent components
   const handleLikeSubmit = () => {
-    setLiked(!liked);
-    axios.post('/api/change-liked', {post: post, amount: liked ? 1 : -1, userId: userId})
+    
+    axios.post('/api/change-likes', {post: post, amount: liked ? -1 : 1, userId: userId}).then(res => {
+      setLiked(!liked);
+      console.log('Removed like')
+    }).catch(err => {
+      console.log(err)
+      setLiked(!liked)
+    })
   };
 
   return (

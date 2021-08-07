@@ -12,12 +12,11 @@ interface Props {
 
 const PostBox: React.FC<Props> = ({ post, userId }) => {
   const postCreatedTimeAgo = getDateDifferenceString(post.creationTime);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false);  
   useEffect(() => {
     // Figure out why it don't show how much likes
-    setLiked((post.likedList.toString().split(',')).includes(userId)); // Searhing in likedList for current user
-  }, [])
-
+    setLiked(post.likedList.toString().split(',').includes(userId)); // Searhing in likedList for current user
+  }, [post, userId])
   const handleLikeAdd = (e: any) => {
     e.preventDefault();
     if (liked) {

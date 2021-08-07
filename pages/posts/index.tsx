@@ -8,19 +8,20 @@ import { Post } from "../../lib/Interfaces";
 import axios from "axios";
 import { getPostsFromDatabase } from "../../lib/Posts";
 import { GetStaticProps } from "next";
+import Navbar from "../../components/UI/Navbar";
 
 interface Props {
   posts: Post[];
 }
 
 const PostsHome: React.FC<Props> = ({ posts }) => {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(false); // Loading when uploading a post, can be used for graphical purposes later
   const router = useRouter();
   useEffect(() => {
     const id = localStorage.getItem("?");
-    setUserId(localStorage.getItem('?') as string);
-    console.log('Logged in', id);
+    setUserId(localStorage.getItem("?") as string);
+    console.log("Logged in", id);
     if (id === null) {
       router.push("/login");
     }
@@ -46,15 +47,18 @@ const PostsHome: React.FC<Props> = ({ posts }) => {
   };
 
   return (
-    <div
-      className="d-flex flex-column justify-content-center mt-5"
-      style={{ backgroundColor: "var(--primColor)" }}
-    >
-      <FormWrapper>
-        <PostForm addPost={addPost} />
-      </FormWrapper>
-      <PostsList userId={userId} posts={posts} />
-    </div>
+    <>
+      <Navbar />
+      <div
+        className="d-flex flex-column justify-content-center pt-5"
+        style={{ backgroundColor: "var(--primColor)" }}
+      >
+        <FormWrapper>
+          <PostForm addPost={addPost} />
+        </FormWrapper>
+        <PostsList userId={userId} posts={posts} />
+      </div>
+    </>
   );
 };
 
@@ -69,7 +73,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       creationTime: post.creationTime.toString(),
       likesAmount: post.likesAmount,
       id: post._id.toString(),
-      likedList: post.likedList
+      likedList: post.likedList,
     };
     updatedPosts.push(newPost);
   });
@@ -77,11 +81,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   updatedPosts = updatedPosts.sort((pos1, pos2) => {
     const date1 = new Date(pos1.creationTime);
     const date2 = new Date(pos2.creationTime);
-    return (date2.getTime() - date1.getTime()); 
-  })
+    return date2.getTime() - date1.getTime();
+  });
   return {
     props: {
-      posts: updatedPosts
+      posts: updatedPosts,
     },
     revalidate: 4,
   };

@@ -1,0 +1,26 @@
+/* For navbar */
+
+.navContainer {
+  color: white;
+  margin-top: 2%;
+  font-weight: 700;
+  background-color: var(--primColor) !important;
+
+}
+
+.navLink {
+  cursor: pointer;
+  font-size: 140%;
+
+  background:linear-gradient(to right, white 50%,  lightcoral 50%);
+  background-size: 200%;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.2s ease-out;
+}
+
+.navLink:hover {
+  background-position: -100%;
+}
+

@@ -1,6 +1,6 @@
 import { MongoClient, Db, ObjectId } from "mongodb";
 import PostsHome from "../pages/posts";
-import { Post } from "./Interfaces";
+import { Post, maxPostsPerPage } from "./Interfaces";
 
 const clientPromise: Promise<MongoClient> | null = MongoClient.connect(
   process.env.DB_URI as string
@@ -14,10 +14,34 @@ export const connectDatabase = async () => {
   return client.db();
 };
 
-export const addToCollection = async (collection: string, addedData: any) => {
+export const addToCollection = async (
+  collectionString: string,
+  addedData: any
+) => {
   const db = await connectDatabase();
-  const usersCollection = db.collection(collection);
-  return await usersCollection.insertOne(addedData);
+  const collection = db.collection(collectionString);
+  return await collection.insertOne(addedData);
+};
+
+export const addPostToDB = async (post: Post) => {
+  const db = await connectDatabase();
+  const postCollection = db.collection("Posts");
+  const count = await postCollection.countDocuments();
+  const diff = count - maxPostsPerPage + 1;
+  if (diff >= 0) {
+    const lastPostsArr = await postCollection
+      .find()
+      .limit(diff)
+      .toArray();
+    for (const post of lastPostsArr) {
+      // delete last posts
+      const deleteResponse = await postCollection.deleteOne({ _id: post._id });
+      if (deleteResponse?.acknowledged) {
+        console.log("More than 10 posts on page, deleting last ones: ", post._id);
+      }
+    }
+  }
+  return await addToCollection("Posts", post);
 };
 
 export const findInCollection = async (
@@ -35,13 +59,10 @@ export const findUserById = async (id: string) => {
   return await usersCollection.findOne({ _id: new ObjectId(id) });
 };
 
-export const getPosts = async (bundleNum: number) => {
+export const getPosts = async () => {
   const db = await connectDatabase();
   const postsCollection = db.collection("Posts");
-  return postsCollection
-    .find()
-    .skip(10 * bundleNum)
-    .limit(10);
+  return postsCollection.find().limit(10);
 };
 
 export const changePostLikeAmount = async (

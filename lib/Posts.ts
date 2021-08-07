@@ -11,17 +11,12 @@ export const addPostToDatabase = async (content: string, userId: string) => {
     likedList: []
   };
 
-  const res = await Database.addToCollection("Posts", post);
+  const res = await Database.addPostToDB(post);
   return res;
 };
 
 export const getPostsFromDatabase = async (bundleNum: number) => {
-  // 10 posts will be in each bundle
-  // bundle 0 1 - 10
-  // bundle 1 10 - 20
-  // bundle 2 20 - 30
-  const res = await Database.getPosts(bundleNum);
-  
+  const res = await Database.getPosts();
   const arr = await res.toArray();
   return arr;
   // Close client !!!!IMPORTANT!!!!

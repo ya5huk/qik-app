@@ -1,3 +1,5 @@
+export const maxPostsPerPage = 10 ; 
+
 export interface registerUser { 
   description: string,
   email: string,
@@ -24,4 +26,5 @@ export interface Post {
   likesAmount: number,
   likedList: string[] | string
 }
+
 

@@ -5,5 +5,5 @@ The chat is currently designed for fast communication, which means it shows only
 
 # How it is made
 
-The app is built with [Next.js](https://nextjs.org) and using [mongoDB](https://www.mongodb.com/)
+The app is built with [Next.js](https://nextjs.org) and uses [mongoDB](https://www.mongodb.com/)
 

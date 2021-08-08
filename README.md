@@ -10,7 +10,7 @@ The app is built with [Next.js](https://nextjs.org) & [mongoDB](https://www.mong
 # Notes
 
 Currently the app supports only connection, chat, and user/post page for each one of them.
-It DOES'NT have a group creating feature with links, but the group that would be created via the link is fully working
+It DOES'NT have a group creating feature with links, but the group that would be created via the link is fully working.
 If you want to keep working on this, your more than welcome ;)
 For questions email me :)
 

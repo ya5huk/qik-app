@@ -9,9 +9,17 @@ The app is built with [Next.js](https://nextjs.org) and uses [mongoDB](https://w
 
 # How to run it
 
+1. [Install node](https://nodejs.org/en/)
+2. Set up database and get [Mongo connection string](https://docs.mongodb.com/manual/reference/connection-string/)
+3. Clone this git repository
 ```
 git clone https://github.com/ya5huk/qik-app.git
 cd qik-app
 npm install
-npm run dev
 ```
+4. Insert into env variable `DB_URI` your connection string:
+```
+// Example: In file .env.local
+DB_URI = <connection_string> // accessible via process.env.DB_URI
+```
+5. You are ready to go! Run `npm run dev`

@@ -7,6 +7,13 @@ The chat is currently designed for fast communication, which means it shows only
 
 The app is built with [Next.js](https://nextjs.org) and uses [mongoDB](https://www.mongodb.com/)
 
+# Notes
+
+Currently the app supports only connection, chat, and user/post page for each one of them.
+It DOES'NT have a group creating feature with links, but the group that would be created via the link is fully working
+If you want to keep working on this, your more than welcome ;)
+For questions email me :)
+
 # How to run it
 
 1. [Install node](https://nodejs.org/en/)

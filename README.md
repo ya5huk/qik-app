@@ -1,7 +1,7 @@
 ## What is qik
 
 qik is a simple & modern fast chat app where making a group takes less than a minute - just copy a link and send to your friends to create a group chat!
-The chat is currently designed for fast communication, which means it shows only number of messages. Messages that are not shown on the group chat page are deleted.
+The chat is currently designed for fast communication, which means it shows only number of messages (currently last 10). Messages that are not shown on the group chat page are deleted.
 
 # How it's made
 

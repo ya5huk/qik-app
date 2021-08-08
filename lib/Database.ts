@@ -8,8 +8,13 @@ const clientPromise: Promise<MongoClient> | null = MongoClient.connect(
 let client: MongoClient | null = null;
 
 export const connectDatabase = async () => {
-  if (!client) {
+	try {
+		if (!client) {
     client = await clientPromise;
+  }
+	}
+  catch (err) {
+	throw new Error("ERROR!!!! CHECK YOUR DB CONNECTION (COULD BE URI STRING)");
   }
   return client.db();
 };

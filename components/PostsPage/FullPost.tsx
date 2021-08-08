@@ -52,7 +52,7 @@ const FullPost: React.FC<Props> = ({ post, userId, likedInitialValue }) => {
         </div>
         <div className="card-footer d-flex justify-content-between">
           <Link href="/posts">
-            <a className={`my-auto pb-1 ${classes.heartStyle}`}>🔙</a>
+            <a className={`my-auto pb-1 ${classes.backButton}`}>&#8592;</a>
           </Link>
 
           <div id="likesSection" className="d-flex flex-inline">

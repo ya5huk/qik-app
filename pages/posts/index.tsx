@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import FormWrapper from "../../components/PostsPage/FormWrapper";
 import PostForm from "../../components/PostsPage/PostForm";
 import PostsList from "../../components/PostsPage/PostsList";
 import { Post } from "../../lib/Interfaces";
 import axios from "axios";
 import { getPostsFromDatabase } from "../../lib/Posts";
+import {getUserByUsername} from '../../lib/Database'
 import { GetStaticProps } from "next";
 import Navbar from "../../components/UI/Navbar";
 
@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const posts = await getPostsFromDatabase(0);
   let updatedPosts: Post[] = [];
   // Just to get the id's to string form and date string to Date
-  posts?.forEach((post) => {
+  posts?.forEach(async (post) => {
     const newPost: Post = {
       author: post.author,
       content: post.content,

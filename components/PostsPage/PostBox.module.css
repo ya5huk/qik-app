@@ -25,3 +25,13 @@
   font-size: 15px;
   color: rgba(255, 255, 255, 0.315);
 }
+
+.postAuthor {
+  cursor: pointer;
+}
+
+.postAuthor:hover {
+  color: var(--secoColor);
+  transform: scale(1.2);
+  transition: ease-in 0.1s
+}

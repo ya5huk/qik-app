@@ -29,15 +29,15 @@ export const addPostToDB = async (post: Post) => {
   const count = await postCollection.countDocuments();
   const diff = count - maxPostsPerPage + 1;
   if (diff >= 0) {
-    const lastPostsArr = await postCollection
-      .find()
-      .limit(diff)
-      .toArray();
+    const lastPostsArr = await postCollection.find().limit(diff).toArray();
     for (const post of lastPostsArr) {
       // delete last posts
       const deleteResponse = await postCollection.deleteOne({ _id: post._id });
       if (deleteResponse?.acknowledged) {
-        console.log("More than 10 posts on page, deleting last ones: ", post._id);
+        console.log(
+          "More than 10 posts on page, deleting last ones: ",
+          post._id
+        );
       }
     }
   }
@@ -105,7 +105,35 @@ export const getAllPostsId = async () => {
 
 export const getPostById = async (id: string) => {
   const db = await connectDatabase();
-  const usersCollection = db.collection("Posts");
-  const res = await usersCollection.findOne({ _id: new ObjectId(id) });
+  const postsCollection = db.collection("Posts");
+  const res = await postsCollection.findOne({ _id: new ObjectId(id) });
   return res;
 };
+
+export const getAllUsersId = async () => {
+  const db = await connectDatabase();
+  const usersCollection = db.collection("Users");
+  const res = usersCollection.find({}, { projection: { _id: 1 } });
+  const arr = await res.toArray();
+  return arr.map((obj) => obj._id.toString());
+};
+
+export const getUserById = async (id: string) => {
+  const db = await connectDatabase();
+  const usersCollection = db.collection("Users");
+  const res = await usersCollection.findOne(
+    { _id: new ObjectId(id) },
+    { projection: { '_id': 0, 'email': 1, 'username': 1, 'description': 1 } }
+  );
+  return res as Document;
+};
+
+export const getUserByUsername = async (usr: string) => {
+  const db = await connectDatabase();
+  const usersCollection = db.collection("Users");
+  const res = await usersCollection.findOne(
+    { username: usr },
+    { projection: { '_id': 1, 'email': 1, 'description': 1 } }
+  );
+  return res as Document;
+} 

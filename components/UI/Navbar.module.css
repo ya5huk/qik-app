@@ -12,7 +12,7 @@
   cursor: pointer;
   font-size: 140%;
 
-  background:linear-gradient(to right, white 50%,  lightcoral 50%);
+  background:linear-gradient(to right, white 50%, rgb(29, 120, 240) 50%);
   background-size: 200%;
 
   -webkit-background-clip: text;

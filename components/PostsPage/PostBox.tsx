@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import classes from "./PostBox.module.css";
 import { Post } from "../../lib/Interfaces";
 import { getDateDifferenceString } from "../../lib/Date";
+import { getUserByUsername } from "../../lib/Database";
 import axios from "axios";
 import Link from "next/link";
+import { GetStaticProps } from "next";
 
 interface Props {
   post: Post;
@@ -12,11 +14,17 @@ interface Props {
 
 const PostBox: React.FC<Props> = ({ post, userId }) => {
   const postCreatedTimeAgo = getDateDifferenceString(post.creationTime);
-  const [liked, setLiked] = useState(false);  
+  const [liked, setLiked] = useState(false);
+  const [authorId, setAuthorId] = useState("");
   useEffect(() => {
     // Figure out why it don't show how much likes
-    setLiked(post.likedList.toString().split(',').includes(userId)); // Searhing in likedList for current user
-  }, [post, userId])
+    setLiked(post.likedList.toString().split(",").includes(userId)); // Searhing in likedList for current user
+    axios.post('/api/find-user-by-username', {username: post.author}).then(res => {
+      setAuthorId(res.data.result._id.toString());
+    }).catch(err => {
+      console.log('ERROR: ', err)
+    })
+  }, [post, userId]);
   const handleLikeAdd = (e: any) => {
     e.preventDefault();
     if (liked) {
@@ -48,7 +56,9 @@ const PostBox: React.FC<Props> = ({ post, userId }) => {
   return (
     <div className={`card text-white border-white mb-5 ${classes.cardStyles}`}>
       <div className="card-header bg-transparent border-none d-flex flex-inline align-items-center justify-content-between">
-        <p className="m-0 fw-bold">{post.author}</p>
+        <Link href={`/accounts/${authorId}`}>
+          <p className={`m-0 fw-bold ${classes.postAuthor}`}>{post.author}</p>
+        </Link>
         <p className={`m-0 ${classes.dateStyles}`}>{postCreatedTimeAgo}</p>
       </div>
 

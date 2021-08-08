@@ -17,9 +17,9 @@ git clone https://github.com/ya5huk/qik-app.git
 cd qik-app
 npm install
 ```
-4. Insert into env variable `DB_URI` your connection string:
+4. Insert into enviorment variable `DB_URI` your connection string:
 ```
-// Example: In file .env.local
+// Example: In file .env.local in root directory
 DB_URI = <connection_string> // accessible via process.env.DB_URI
 ```
 5. You are ready to go! Run `npm run dev`

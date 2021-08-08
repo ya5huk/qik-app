@@ -11,10 +11,10 @@ export const connectDatabase = async () => {
 	try {
 		if (!client) {
     client = await clientPromise;
-  }
+  	}
 	}
   catch (err) {
-	throw new Error("ERROR!!!! CHECK YOUR DB CONNECTION (COULD BE URI STRING)");
+		throw new Error("ERROR!!!! CHECK YOUR DB CONNECTION (COULD BE URI STRING)");
   }
   return client.db();
 };

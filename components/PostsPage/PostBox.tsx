@@ -56,7 +56,7 @@ const PostBox: React.FC<Props> = ({ post, userId }) => {
   return (
     <div className={`card text-white border-white mb-5 ${classes.cardStyles}`}>
       <div className="card-header bg-transparent border-none d-flex flex-inline align-items-center justify-content-between">
-        <Link href={`/accounts/${authorId}`}>
+        <Link href={`/accounts/${authorId}`} passHref>
           <p className={`m-0 fw-bold ${classes.postAuthor}`}>{post.author}</p>
         </Link>
         <p className={`m-0 ${classes.dateStyles}`}>{postCreatedTimeAgo}</p>

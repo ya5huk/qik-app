@@ -30,7 +30,7 @@ const Account: React.FC<Props> = ({ description, email, username }) => {
           contact me: <span className={`${classes.emailText}`}>{email}</span>{" "}
         </div>
         <div className="card-footer d-flex justify-content-end me-3">
-          <Link href="/posts">
+          <Link href="/posts" passHref>
             <p className={`${classes.myFont} ${classes.backButton} fw-bold`}>&#8592;</p>
           </Link>
         </div>

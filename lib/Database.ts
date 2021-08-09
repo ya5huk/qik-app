@@ -14,7 +14,7 @@ export const connectDatabase = async () => {
   	}
 	}
   catch (err) {
-		throw new Error("ERROR!!!! CHECK YOUR DB CONNECTION (COULD BE URI STRING)");
+		throw new Error(`ERROR!!!! CHECK YOUR DB CONNECTION (COULD BE URI STRING)\n\n\nError: ${err}`);
   }
   return client.db();
 };
